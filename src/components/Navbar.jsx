@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import logo from '../assets/images/logo.png';
 import {
   Collapse,
   Navbar,
@@ -21,7 +22,7 @@ const NavBar = (props) => {
       <Navbar color="light" light expand="md">
       <div className="container navbar__container">
         <NavbarBrand href="/">
-            <img src="assets/images/logo.png" alt="logo" />
+            <img src={logo} alt="logo" />
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>

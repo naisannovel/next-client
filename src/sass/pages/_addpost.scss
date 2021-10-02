@@ -1,0 +1,29 @@
+.add__post__container{
+    width: 80%;
+    margin: 3rem auto;
+    & .form-group {
+      margin-bottom: 2.5rem;
+    }
+    & label {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    & input {
+      width: 100%;
+      font-size: 2.5rem;
+      border: none;
+      outline: none;
+    }
+    & .add__post__file__input{
+        width: 100%;
+        font-size: 1.5rem;
+        padding: 0 !important;
+    }
+    & textarea {
+      width: 100%;
+      height: 150px;
+      font-size: 1.5rem;
+      border: none;
+      outline: none;
+    }
+}
