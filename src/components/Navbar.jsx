@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import logo from '../assets/images/logo.png';
 import {
   Collapse,
@@ -10,9 +10,13 @@ import {
   NavLink
 } from 'reactstrap';
 import { Link, useHistory } from 'react-router-dom';
+import { isAuthenticated } from '../utilities/authUtilities';
+import { logout } from './authentication/auth';
+import { userInfoContext } from '../App';
 
 const NavBar = (props) => {
-    const history = useHistory();
+  const [user,setUser] = useContext(userInfoContext);
+  const history = useHistory();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -37,7 +41,11 @@ const NavBar = (props) => {
               <Link to='/add/post'>Add Post</Link>
             </NavItem>
             <NavItem>
-              <button className='primary__btn' onClick={()=> history.push('/login')}>Log In</button>
+              {
+                isAuthenticated(null) ? 
+                <button onClick={()=>logout(()=>{ setUser({...user,userData:{}}); history.push('/') })} className='primary__btn' style={{background:'#FF00B5'}}>Log Out</button>:
+                <button className='primary__btn' onClick={()=> history.push('/login')}>Log In</button>
+              }
             </NavItem>
           </Nav>
         </Collapse>

@@ -4,7 +4,9 @@ import { useForm } from 'react-hook-form';
 import { Link } from "react-router-dom";
 import { Redirect, useHistory, useLocation } from "react-router";
 import { userInfoContext } from "../../App";
-import { updateUser, userCreateWithEmailAndPassword, userInfo } from "./auth";
+import { userCreateWithEmailAndPassword } from "./auth";
+import { isAuthenticated } from "../../utilities/authUtilities";
+import Spinner from '../../utilities/Spinner';
 
 const SignUp = () => {
   const [user,setUser] = useContext(userInfoContext);
@@ -20,7 +22,8 @@ const SignUp = () => {
     userCreateWithEmailAndPassword(data.email,data.password,data.name)
     .then(res => {
       if(res.message === undefined){
-        setUser({...user,loading: false, errMsg: null, userData: res})
+        setUser({...user,loading: false, errMsg: null, userData: res});
+        history.push(from);
       }else{
         setUser({...user,loading: false, errMsg: res.message, userData: {}})
       }
@@ -29,8 +32,14 @@ const SignUp = () => {
     reset()
   };
 
-  let signupPage =
-      <div className="container row m-auto signup__container">
+  const redirectUser = () => {
+    if (isAuthenticated(null)) return <Redirect to="/" />
+  };
+
+  let signupPage = null;
+  if(!user.loading){
+    signupPage =
+    <div className="container row m-auto signup__container">
           <div className="col-md-6">     
             <div className="signup__input__container">
               <h1>Sign Up</h1>
@@ -69,9 +78,15 @@ const SignUp = () => {
             <img src="assets/images/signup.svg" alt="signup icon" />
           </div>
         </div>
+  }else{
+    signupPage = <Spinner/>
+  }
+      
 
   return (
     <div>
+      { redirectUser() }
+      {  user.errMsg !== null ? <Alert color="danger" style={{fontSize:'16px'}}> { user.errMsg } </Alert>:'' }
       { signupPage }
     </div>
   );

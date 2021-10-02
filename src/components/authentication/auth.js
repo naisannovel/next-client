@@ -81,9 +81,13 @@ export const createAccountWithGoogle = async () => {
         });
 };
 
-export const logout = () => {
+// log out
+
+export const logout = cb => {
     signOut(auth).then(() => {
-        console.log('logout');
+        localStorage.removeItem('token');
+        localStorage.removeItem('expirationTime');
+        cb();
     }).catch((error) => {
         console.log(error);
     });

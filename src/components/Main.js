@@ -2,6 +2,7 @@ import React, { lazy, Suspense } from 'react';
 import { Switch,Route, Redirect } from 'react-router-dom';
 import Navbar from './Navbar';
 import Spinner from '../utilities/Spinner';
+import PrivateRouter from './authentication/PrivateRouter';
 
 const Home = lazy(()=> import('./home/Home'));
 const AddPost = lazy(()=> import('./AddPost'));
@@ -15,8 +16,12 @@ const Main = () => {
             <Navbar/>
             <Switch>
                 <Route path='/' exact component={Home} />
-                <Route path='/add/post' exact component={AddPost} />
-                <Route path='/my/post' exact component={MyPost} />
+                <PrivateRouter path='/add/post' exact>
+                    <AddPost/>
+                </PrivateRouter>
+                <PrivateRouter path='/my/post' exact>
+                    <MyPost/>
+                </PrivateRouter>
                 <Route path='/login' exact component={Login} />
                 <Route path='/signup' exact component={Signup} />
                 <Redirect to='/' />

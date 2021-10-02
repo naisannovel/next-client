@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router';
+import { isAuthenticated } from '../../utilities/authUtilities';
 
 const PrivateRouter = ({ children, ...rest }) => {
     
@@ -7,7 +8,7 @@ const PrivateRouter = ({ children, ...rest }) => {
         <Route
       {...rest}
       render={({ location }) =>
-      true ? (
+      isAuthenticated(null) ? (
           children
         ) : (
           <Redirect

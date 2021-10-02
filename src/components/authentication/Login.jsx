@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
-import { Form, FormGroup } from "reactstrap";
+import { Alert, Form, FormGroup } from "reactstrap";
 import { useForm } from 'react-hook-form';
 import { Link } from "react-router-dom";
 import { Redirect, useHistory, useLocation } from "react-router";
-import { createAccountWithGoogle, userInfo, userLoginWithEmailAndPassword } from "./auth";
+import { createAccountWithGoogle, userLoginWithEmailAndPassword } from "./auth";
 import { userInfoContext } from "../../App";
-
+import { isAuthenticated } from "../../utilities/authUtilities";
+import Spinner from '../../utilities/Spinner';
 
 const Login = () => {
   const [user,setUser] = useContext(userInfoContext);
@@ -20,7 +21,8 @@ const Login = () => {
     userLoginWithEmailAndPassword(data.email,data.password)
     .then(res =>{
       if(res.message === undefined){
-        setUser({...user,loading: false, errMsg: null, userData: res})
+        setUser({...user,loading: false, errMsg: null, userData: res});
+        history.push(from)
       }else{
         setUser({...user,loading: false, errMsg: res.message, userData:{}})
       }
@@ -34,8 +36,14 @@ const Login = () => {
     .then(result => setUser({...user,userData:result}))
   }
 
-  let loginPage = 
-    <div className="container row login__container m-auto">
+  const redirectUser = () => {
+    if (isAuthenticated(null)) return <Redirect to="/" />
+  };
+
+  let loginPage = null;
+    if(!user.loading){
+      loginPage =
+      <div className="container row login__container m-auto">
       <div className="col-md-6 order-1">
         <img src="assets/images/login.svg" alt="login icon" />
       </div>
@@ -72,10 +80,14 @@ const Login = () => {
         </div>
       </div>
     </div>
+    }else{
+      loginPage = <Spinner/>
+    }
 
   return (
     <div>
-      {/* {  userAuth.failedMsg !== null ? <Alert color="danger" style={{fontSize:'16px'}}> { userAuth.failedMsg } </Alert>:'' } */}
+      { redirectUser() }
+      {  user.errMsg !== null ? <Alert color="danger" style={{fontSize:'16px'}}> { user.errMsg } </Alert>:'' }
       { loginPage }
     </div>
   );
