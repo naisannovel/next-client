@@ -10,56 +10,72 @@ import {
 } from "firebase/auth";
 import { firebaseConfig } from '../../firebase.config';
 import 'firebase/auth';
+import jwt_decode from 'jwt-decode';
+import _ from 'lodash';
 
 initializeApp(firebaseConfig);
 const provider = new GoogleAuthProvider();
 const auth = getAuth();
 
+// token save in localStorage
+const setTokenInLocalStorage = token =>{
+    localStorage.setItem('token',JSON.stringify(token));
+    const { exp } = jwt_decode(token);
+    const expirationTime = new Date(exp * 1000);
+    localStorage.setItem('expirationTime',expirationTime);
+}
 
 // sign up with email and password
 
-export const userInfo = () => {
-    const user = auth.currentUser;
-    return user;
+export const userInfo = async () => {
+    const user = await auth.currentUser;
+    setTokenInLocalStorage(user.accessToken);
+    const userData = _.pick(user,['displayName','email']);
+    return userData;
 }
 
-export const updateUser = name => {
-    updateProfile(auth.currentUser, {
+export const updateUser = async (name) => {
+    return await updateProfile(auth.currentUser, {
         displayName: name
-    }).then(() => {
-        userInfo();
-    }).catch((error) => {});
+    }).then((res) => {
+        return userInfo();
+    }).catch((error) => {
+        return error
+    });
 }
 
-export const userCreateWithEmailAndPassword = (email, password, name) => {
-    createUserWithEmailAndPassword(auth, email, password)
+export const userCreateWithEmailAndPassword = async (email, password, name) => {
+    return await createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            updateUser(name);
+            return updateUser(name);
         })
         .catch((error) => {
-            console.log(error);
+            return error;
         });
 }
 
 // sign in with email and password
 
-export const userLoginWithEmailAndPassword = (email,password) =>{
-    signInWithEmailAndPassword(auth, email, password)
+export const userLoginWithEmailAndPassword = async (email,password) =>{
+    return await signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            const user = userCredential.user;
+            setTokenInLocalStorage(userCredential.user.accessToken);
+            const user = _.pick(userCredential.user,['displayName','email']);
             return user;
         })
         .catch((error) => {
-            console.log(error.message);
+            return error
         });
 }
 
 // sign in with google
 
-export const createAccountWithGoogle = () => {
-    signInWithPopup(auth, provider)
+export const createAccountWithGoogle = async () => {
+   return await signInWithPopup(auth, provider)
         .then((result) => {
-            return result;
+            setTokenInLocalStorage(result.user.accessToken);
+            const user = _.pick(result.user,['displayName','email']);
+            return user;
         }).catch((error) => {
             console.log(error);
         });

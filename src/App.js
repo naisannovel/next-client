@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { createContext, useState } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Main from './components/Main';
 
+export const userInfoContext = createContext();
+
 function App() {
+
+  const [user,setUser] = useState({loading:false,userData:{},errMsg:null});
+
   return (
-    <BrowserRouter>
-      <Main/>
-    </BrowserRouter>
+    <userInfoContext.Provider value={[user,setUser]}>
+      <BrowserRouter>
+        <Main/>
+      </BrowserRouter>
+    </userInfoContext.Provider>
   );
 }
 

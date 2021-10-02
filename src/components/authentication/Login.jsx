@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Form, FormGroup } from "reactstrap";
 import { useForm } from 'react-hook-form';
 import { Link } from "react-router-dom";
 import { Redirect, useHistory, useLocation } from "react-router";
-import { createAccountWithGoogle, updateUser, userInfo } from "./auth";
+import { createAccountWithGoogle, userInfo, userLoginWithEmailAndPassword } from "./auth";
+import { userInfoContext } from "../../App";
+
 
 const Login = () => {
-  document.title = 'Resto. - Login'
+  const [user,setUser] = useContext(userInfoContext);
   const history = useHistory();
   const location = useLocation();
   let { from } = location.state || { from: { pathname: '/' } };
@@ -14,9 +16,23 @@ const Login = () => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
   const onSubmit = data => {
-    console.log(data);
+    setUser({...user,loading: true});
+    userLoginWithEmailAndPassword(data.email,data.password)
+    .then(res =>{
+      if(res.message === undefined){
+        setUser({...user,loading: false, errMsg: null, userData: res})
+      }else{
+        setUser({...user,loading: false, errMsg: res.message, userData:{}})
+      }
+    })
+    .catch(err => console.log('err ',err))
     reset();
   };
+
+  const googleLoginHandler = ()=>{
+    createAccountWithGoogle()
+    .then(result => setUser({...user,userData:result}))
+  }
 
   let loginPage = 
     <div className="container row login__container m-auto">
@@ -34,16 +50,16 @@ const Login = () => {
                 placeholder="Email"
                 {...register("email", { required: true, pattern:/\S+@\S+\.\S+/,minLength:5,maxLength:255 })}
               />
-              {errors.email && <span className='form__error__style'>required</span>}
+              {errors.email && <span className='input__err'>required</span>}
             </FormGroup>
             <FormGroup>
               <input
                 type="password"
                 className="mt-4"
                 placeholder="Password"
-                {...register("password", { required: true,minLength:5,maxLength:255 })}
+                {...register("password", { required: true,minLength:6,maxLength:255 })}
               />
-              {errors.password && <span className='form__error__style'>required - minimum 5 characters</span>}
+              {errors.password && <span className='input__err'>required - minimum 6 characters</span>}
             </FormGroup>
             <button className="primary__btn mt-5">Log In</button>
           </Form>
@@ -52,7 +68,7 @@ const Login = () => {
           </p>
           <p>Or</p>
           <br />
-          <button className='primary__btn' onClick={()=> createAccountWithGoogle()}>Sign In With Google</button>
+          <button className='primary__btn' onClick={googleLoginHandler}>Sign In With Google</button>
         </div>
       </div>
     </div>
