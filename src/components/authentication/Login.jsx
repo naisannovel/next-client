@@ -3,6 +3,7 @@ import { Form, FormGroup } from "reactstrap";
 import { useForm } from 'react-hook-form';
 import { Link } from "react-router-dom";
 import { Redirect, useHistory, useLocation } from "react-router";
+import { createAccount } from "./auth";
 
 const Login = () => {
   document.title = 'Resto. - Login'
@@ -51,7 +52,7 @@ const Login = () => {
           </p>
           <p>Or</p>
           <br />
-          <button className='primary__btn'>Sign In With Google</button>
+          <button className='primary__btn' onClick={()=> createAccount()}>Sign In With Google</button>
         </div>
       </div>
     </div>

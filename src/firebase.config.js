@@ -1,0 +1,1 @@
+export const firebaseConfig = process.env.REACT_APP_FIREBASECONFIG
