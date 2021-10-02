@@ -1,0 +1,23 @@
+.navbar__main__container {
+    & .navbar__container {
+        & img {
+            width: 12rem;
+        }
+
+        & ul {
+            margin-left: auto !important;
+            padding: 0 !important;
+            text-align: center;
+
+            & li {
+                margin: auto 0.6rem;
+
+                & a {
+                    font-size: 1.6rem;
+                    text-decoration: none;
+                    color: $tertiary-color;
+                }
+            }
+        }
+    }
+}

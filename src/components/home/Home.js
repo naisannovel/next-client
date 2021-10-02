@@ -7,11 +7,11 @@ const Footer = lazy(()=> import('./Footer'));
 
 const home = () => {
     return (
-        <Suspense fallback={<Spinner/>}>
-            <Hero/>
-            <Posts/>
-            <Footer/>
-        </Suspense>
+            <Suspense fallback={<Spinner/>}>
+                <Hero/>
+                <Posts/>
+                <Footer/>
+            </Suspense>
     );
 };
 

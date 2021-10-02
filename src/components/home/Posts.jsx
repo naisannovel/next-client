@@ -3,15 +3,10 @@ import PostCard from './PostCard';
 
 const Posts = () => {
     return (
-        <div>
-            <PostCard/>
-            <PostCard/>
-            <PostCard/>
-            <PostCard/>
-            <PostCard/>
-            <PostCard/>
-            <PostCard/>
-            <PostCard/>
+        <div className='container'>
+            <div className="row">
+                {/* <PostCard/> */}
+            </div>
         </div>
     );
 };

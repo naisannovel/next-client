@@ -2,8 +2,8 @@ import React from 'react';
 
 const Footer = () => {
     return (
-        <div>
-            <h1>Hello, i am Footer</h1>
+        <div className='footer__container'>
+            <p>© { new Date().getFullYear() } Next, All Rights Reserved</p>
         </div>
     );
 };

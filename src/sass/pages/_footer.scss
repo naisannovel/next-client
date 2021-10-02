@@ -1,0 +1,10 @@
+.footer__container{
+    background-color: #F8F9FA;
+    text-align: center;
+    padding: 1.5rem 0;
+    @include center-flex;
+    & p{
+        font-size: 1.5rem;
+        margin: 0 !important;
+    }
+}
