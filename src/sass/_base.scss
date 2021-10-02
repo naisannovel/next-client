@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;500;600;800;900&display=swap');
+
+*,
+*::after,
+*::before{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    font-size: 62.5%;   // 1rem = 10px
+
+    @include respond(phone){
+        font-size: 50%;    // 1rem = 8px
+    }
+
+    @include respond(tablet){
+        font-size: 56.3%;  // 1rem = 9px
+    }
+
+}
+
+body{
+    font-family: 'Roboto Slab', serif;
+    color: $secondary-color;
+    font-weight: 400;
+}

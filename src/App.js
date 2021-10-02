@@ -1,10 +1,12 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom'
+import Main from './components/Main';
 
 function App() {
   return (
-    <div>
-      <h2>hello world</h2>
-    </div>
+    <BrowserRouter>
+      <Main/>
+    </BrowserRouter>
   );
 }
 
