@@ -1,18 +1,43 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Alert, Form, FormGroup, Label } from "reactstrap";
 import { useForm } from "react-hook-form";
+import { myPostContext } from "../App";
+import { API } from "../utilities/baseURL";
+import axios from "axios";
+import Spinner from '../utilities/Spinner';
 
 
 const AddPost = () => {
+  const [myPost,setMyPost] = useContext(myPostContext);
+  const [addSuccessMsg,setAddSuccessMsg] = useState(null);
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
   const onSubmit = data => {
-    console.log(data);
+    setMyPost({...myPost, loading: true })
+    const formData = new FormData();
+          formData.append('title',data.title);
+          formData.append('body', data.body);
+          formData.append('image',data.image[0]);
+          axios.post(`${API}/post`,formData,{
+            headers:{
+              "Authorization": `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+            }
+          })
+          .then(res => {
+            setMyPost({...myPost, post: myPost.post.concat(res.data.data), loading: false });
+            setAddSuccessMsg(res.data.message);
+            setTimeout(()=>{
+              setAddSuccessMsg(null);
+            },2000)
+          })
+          .catch(err => console.log(err.response.message));
     reset()
   };
 
-  let addDishPage = 
+  let addPostPage = null;
+    if(!myPost.loading){
+        addPostPage =
         <Form onSubmit={handleSubmit(onSubmit)}>
         <FormGroup>
           <input type="text" {...register("title", { required: true })} placeholder='Title...' />
@@ -31,12 +56,16 @@ const AddPost = () => {
         </FormGroup>
         <button className="primary__btn">Post</button>
       </Form>
+    }else{
+      addPostPage = <Spinner/>
+    }
   
   return (
     <div className="add__post__container">
       <h1>Add Post</h1>
       <hr />
-      { addDishPage }
+      { addSuccessMsg !== null && <Alert color='success' style={{fontSize:'16px'}}>{addSuccessMsg}</Alert>}
+      { addPostPage }
     </div>
   );
 };
