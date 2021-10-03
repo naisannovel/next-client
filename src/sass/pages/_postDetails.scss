@@ -1,0 +1,27 @@
+.post__details__container{
+    & h1{
+        font-size: 4.2rem;
+    }
+    & .post__details__img__container{
+        @include center-flex;
+        height: 35rem;
+        width: 100%;
+        margin-top: 3rem;
+        & img{
+            object-fit: cover;
+            height: 100%;
+            width: 100%;
+        }
+    }
+    & span{
+        font-size: 1.4rem;
+        display: block;
+        margin-top: .6rem;
+        font-weight: 800;
+    }
+    & p{
+        font-size: 1.6rem;
+        margin-top: 2.5rem;
+        color: $tertiary-color;
+    }
+}

@@ -1,21 +1,37 @@
-.hero__container{
-    & .hero__row__container{
+.hero__container {
+    & .hero__row__container {
         margin-top: 7rem;
-        & .hero__content{
+
+        @include respond(tablet) {
+            margin-top: 2rem;
+        }
+
+        & .hero__content {
             padding: 2rem;
             @include center-flex;
             align-items: start;
             flex-direction: column;
-            & h1{
+
+            @include respond(tablet) {
+                align-items: center;
+            }
+
+            & h1 {
                 font-size: 5rem;
             }
-            & p{
+
+            & p {
                 width: 80%;
                 font-size: 1.7rem;
                 margin: 0.8rem 0;
+
+                @include respond(tablet) {
+                    width: 100%;
+                }
             }
         }
-        & img{
+
+        & img {
             width: 100%;
             height: 100%;
         }

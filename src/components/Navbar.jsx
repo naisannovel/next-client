@@ -6,8 +6,7 @@ import {
   NavbarToggler,
   NavbarBrand,
   Nav,
-  NavItem,
-  NavLink
+  NavItem
 } from 'reactstrap';
 import { Link, useHistory } from 'react-router-dom';
 import { isAuthenticated } from '../utilities/authUtilities';
@@ -25,7 +24,7 @@ const NavBar = (props) => {
     <div className='navbar__main__container'>
       <Navbar color="light" light expand="md">
       <div className="container navbar__container">
-        <NavbarBrand href="/">
+        <NavbarBrand  onClick={()=> history.push('/')}>
             <img src={logo} alt="logo" />
         </NavbarBrand>
         <NavbarToggler onClick={toggle} />

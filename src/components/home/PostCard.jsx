@@ -1,22 +1,24 @@
 import React from "react";
+import { useHistory } from "react-router";
+import { API } from "../../utilities/baseURL";
 
 const PostCard = ({ postData }) => {
-console.log('postData ',postData);
+  const history = useHistory();
+  const { _id, title, body } = postData;
   return (
-    <div className="col-md-4">
-      <div className="card post__card__container">
-        <div>
+    <div className="row gx-5 shadow post__card__container" onClick={()=> history.push(`/post/details/${_id}`)} style={{cursor:'pointer'}}>
+        <div className='col-md-4 post__image__container'>
           <img
-            src=''
+            src={`${API}/post/photo/${_id}`}
+            style={{objectFit:'cover'}}
             alt="blog-img"
           />
         </div>
-        <div className="card-body p-4">
-          <h3 className="card-title"> {  } </h3>
-          <p className="card-text"> {  } </p>
+        <div className="col-md-8 post__card__content__container">
+          <h1 className="card-title"> { title } </h1>
+          <p className="card-text"> { body.slice(0,300) } </p>
           <button className="primary__btn">READ MORE</button>
         </div>
-      </div>
     </div>
   );
 };
