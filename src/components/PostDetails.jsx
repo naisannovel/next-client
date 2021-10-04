@@ -5,6 +5,7 @@ import { API } from '../utilities/baseURL';
 import Spinner from '../utilities/Spinner';
 
 const PostDetails = (props) => {
+    document.title = 'Next - post details';
     const { id } = useParams();
     const [post,setPost] = useState([]);
     const [loading,setLoading] = useState(false);

@@ -7,6 +7,7 @@ import { Alert } from "reactstrap";
 import Spinner from '../utilities/Spinner';
 
 const EditPost = () => {
+  document.title = 'Next - edit post';
   const [loading, setLoading] = useState(false);
   const [post, setPost] = useState({});
   const [showUpdateBtn,setShowUpdateBtn] = useState(false);

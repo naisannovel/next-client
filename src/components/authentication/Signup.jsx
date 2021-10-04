@@ -9,6 +9,7 @@ import { isAuthenticated } from "../../utilities/authUtilities";
 import Spinner from '../../utilities/Spinner';
 
 const SignUp = () => {
+  document.title = 'Next - signup';
   const [user,setUser] = useContext(userInfoContext);
   console.log('user ', user);
   const history = useHistory();

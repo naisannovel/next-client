@@ -6,6 +6,7 @@ import { API } from '../utilities/baseURL';
 import Spinner from '../utilities/Spinner';
 
 const MyPost = () => {
+    document.title = 'Next - my post';
     const [loading,setLoading] = useState(false);
     const [deleteSuccessMsg,setDeleteSuccessMsg] = useState(null);
     const [myPost,setMyPost] = useState([]);

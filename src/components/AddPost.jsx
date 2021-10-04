@@ -7,6 +7,7 @@ import Spinner from '../utilities/Spinner';
 
 
 const AddPost = () => {
+  document.title = 'Next - add post';
   const [loading,setLoading] = useState(false);
   const [addSuccessMsg,setAddSuccessMsg] = useState(null);
 
