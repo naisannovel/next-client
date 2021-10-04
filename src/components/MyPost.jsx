@@ -64,7 +64,13 @@ const MyPost = () => {
         <div className='container'>
             { deleteSuccessMsg !== null && <Alert color='success' style={{fontSize:'16px'}}>{deleteSuccessMsg}</Alert>}
             { myPost.length ? myPostPage : 
-            <h1 className='d-flex justify-content-center align-items-center' style={{color:'grey'}}>No Post Available</h1> }
+            <h1 style={{
+                color:'grey',
+                position: 'absolute',
+                top:'50%',
+                left:'50%',
+                transform:'translate(-50%,-50%)'
+                }}>No Post Available</h1> }
         </div>
     );
 };
