@@ -1,10 +1,6 @@
-<h1>Resto.</h1>
+<h1>Next</h1>
 <br>
-<a href="https://restobd.web.app/" target='_blank'>Preview</a> | <a href="https://hidden-brushlands-13945.herokuapp.com/" target='_blank'>Api Server</a>
-<br>
-<h3>Admin Account</h3>
-<p>Email: admin@mail.com</p>
-<p>Password: 11111</p>
+<a href="https://next-97.web.app/" target='_blank'>Preview</a> | <a href="https://salty-falls-83940.herokuapp.com/" target='_blank'>Api Server</a>
 <br>
 <h2>Features</h2>
  <ul>
