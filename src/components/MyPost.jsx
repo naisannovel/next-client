@@ -63,14 +63,7 @@ const MyPost = () => {
     return (
         <div className='container'>
             { deleteSuccessMsg !== null && <Alert color='success' style={{fontSize:'16px'}}>{deleteSuccessMsg}</Alert>}
-            { myPostPage !== null ? myPostPage : 
-            <h1 style={{
-                color:'grey',
-                position: 'absolute',
-                top:'50%',
-                left:'50%',
-                transform:'translate(-50%,-50%)'
-                }}>No Post Available</h1> }
+            { myPostPage }
         </div>
     );
 };
