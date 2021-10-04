@@ -4,21 +4,16 @@
 <br>
 <h2>Features</h2>
  <ul>
-   <li>user can add products to cart</li>
-   <li>signup for successfully placed order</li>
-   <li>use credit card for pay</li>
-   <li>admin can add, delete, update products through admin panel</li>
+   <li>user can see all blogs post</li>
+   <li>signup for write new blog</li>
+   <li>user can delete and update her blogs</li>
 </ul>
 <br>
  <h2>Front-End Technology</h2>
   <ul>
     <li>React.js</li>
-    <li>Redux</li>
-    <li>Redux-toolkit</li>
-    <li>Jwt</li>
-    <li>Stripe</li>
-    <li>Swiper</li>
-    <li>Google Map</li>
+    <li>Context Api</li>
+    <li>Firebase For Auth</li>
     <li>React Router</li>
     <li>Sass</li>
     <li>Bootstrap</li>
@@ -31,8 +26,8 @@
     <li>MongoDB</li>
     <li>Mongoose</li>
     <li>Joi</li>
-    <li>Express-Fileupload</li>
+    <li>Formidable For File Upload</li>
     <li>Lodash</li>
   </ul>
 <br>
-<a href="https://github.com/naisannovel/resto-server" target='_blank'>Server Site Repository</a>
+<a href="https://github.com/naisannovel/next-server" target='_blank'>Server Site Repository</a>
