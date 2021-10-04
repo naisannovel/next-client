@@ -1,10 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { Alert } from 'reactstrap';
 import { API } from '../utilities/baseURL';
 import Spinner from '../utilities/Spinner';
 
 const MyPost = () => {
     const [loading,setLoading] = useState(false);
+    const [deleteSuccessMsg,setDeleteSuccessMsg] = useState(null);
     const [myPost,setMyPost] = useState([]);
 
     useEffect(()=>{
@@ -21,6 +23,21 @@ const MyPost = () => {
         .catch(err => console.log(err.response.data))
     },[])
 
+    const deleteBtnHandler = id =>{
+        axios.delete(`${API}/post/${id}`,{
+            headers:{
+                'Authorization': `Bearer ${JSON.parse(localStorage.getItem('token'))}`
+            }
+        })
+        .then(res => {
+            setLoading(false);
+            setDeleteSuccessMsg(res.data.message);
+            setTimeout(()=>setDeleteSuccessMsg(null),2000);
+            const existPost = myPost.filter(item => item._id !== res.data.id)
+            setMyPost(existPost);
+        })
+    }
+
     let myPostPage = null;
     if(!loading){
         myPostPage = myPost?.map(item =>(
@@ -31,7 +48,7 @@ const MyPost = () => {
                 </div>
                 <div className="col-md-3 offset-1 my__post__button__container">
                     <button className='primary__btn'><span class="fa fa-edit"></span> Edit</button>
-                    <button className='primary__btn'><span class="fa fa-trash"></span> Delete</button>
+                    <button onClick={()=> deleteBtnHandler(item._id)} className='primary__btn'><span class="fa fa-trash"></span> Delete</button>
                 </div>
             </div>
         ))
@@ -41,6 +58,7 @@ const MyPost = () => {
 
     return (
         <div className='container'>
+            { deleteSuccessMsg !== null && <Alert color='success' style={{fontSize:'16px'}}>{deleteSuccessMsg}</Alert>}
             { myPostPage }
         </div>
     );
