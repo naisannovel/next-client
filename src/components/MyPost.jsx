@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import { Alert } from 'reactstrap';
 import { API } from '../utilities/baseURL';
 import Spinner from '../utilities/Spinner';
@@ -8,6 +9,8 @@ const MyPost = () => {
     const [loading,setLoading] = useState(false);
     const [deleteSuccessMsg,setDeleteSuccessMsg] = useState(null);
     const [myPost,setMyPost] = useState([]);
+
+    const history = useHistory();
 
     useEffect(()=>{
         setLoading(true);
@@ -47,7 +50,7 @@ const MyPost = () => {
                     <p className="card-text"> { item.body.slice(0,200) } </p>
                 </div>
                 <div className="col-md-3 offset-1 my__post__button__container">
-                    <button className='primary__btn'><span class="fa fa-edit"></span> Edit</button>
+                    <button onClick={()=>history.push(`/post/edit/${item._id}`)} className='primary__btn'><span class="fa fa-edit"></span> Edit</button>
                     <button onClick={()=> deleteBtnHandler(item._id)} className='primary__btn'><span class="fa fa-trash"></span> Delete</button>
                 </div>
             </div>

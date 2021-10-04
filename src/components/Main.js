@@ -10,6 +10,7 @@ const MyPost = lazy(()=> import('./MyPost'));
 const Login = lazy(()=> import('./authentication/Login'));
 const Signup = lazy(()=> import('./authentication/Signup'));
 const PostDetails = lazy(()=> import('./PostDetails'));
+const PostEdit = lazy(()=> import('./EditPost.jsx'));
 
 const Main = () => {
     return (
@@ -25,6 +26,9 @@ const Main = () => {
                 </PrivateRouter>
                 <PrivateRouter path='/post/details/:id' exact>
                     <PostDetails/>
+                </PrivateRouter>
+                <PrivateRouter path='/post/edit/:id' exact>
+                    <PostEdit/>
                 </PrivateRouter>
                 <Route path='/login' exact component={Login} />
                 <Route path='/signup' exact component={Signup} />
