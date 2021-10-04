@@ -1,20 +1,19 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Alert, Form, FormGroup, Label } from "reactstrap";
 import { useForm } from "react-hook-form";
-import { myPostContext } from "../App";
 import { API } from "../utilities/baseURL";
 import axios from "axios";
 import Spinner from '../utilities/Spinner';
 
 
 const AddPost = () => {
-  const [myPost,setMyPost] = useContext(myPostContext);
+  const [loading,setLoading] = useState(false);
   const [addSuccessMsg,setAddSuccessMsg] = useState(null);
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
   const onSubmit = data => {
-    setMyPost({...myPost, loading: true })
+    setLoading(true);
     const formData = new FormData();
           formData.append('title',data.title);
           formData.append('body', data.body);
@@ -25,7 +24,7 @@ const AddPost = () => {
             }
           })
           .then(res => {
-            setMyPost({...myPost, post: myPost.post.concat(res.data.data), loading: false });
+            setLoading(false);
             setAddSuccessMsg(res.data.message);
             setTimeout(()=>{
               setAddSuccessMsg(null);
@@ -36,7 +35,7 @@ const AddPost = () => {
   };
 
   let addPostPage = null;
-    if(!myPost.loading){
+    if(!loading){
         addPostPage =
         <Form onSubmit={handleSubmit(onSubmit)}>
         <FormGroup>

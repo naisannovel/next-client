@@ -1,0 +1,13 @@
+.my__post__container{
+    padding: 3.5rem;
+    margin: 2.5rem 0;
+    & .my__post__card__content__container{
+        & p{
+            font-size: 1.5rem;
+        }
+    }
+    & .my__post__button__container{
+        @include center-flex;
+        justify-content: space-evenly;
+    }
+}
