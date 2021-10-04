@@ -1,13 +1,11 @@
 .edit__post__container{
     width: 80%;
     margin: 3rem auto;
-    & .form-group {
-      margin-bottom: 2.5rem;
-    }
     & input {
       width: 100%;
       font-size: 1.8rem;
       padding: .5rem 0;
+      margin-bottom: 2.5rem;
     }
     & textarea {
       width: 100%;
