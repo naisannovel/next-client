@@ -26,6 +26,7 @@ const Login = () => {
         history.push(from)
       }else{
         setUser({...user,loading: false, errMsg: res.message, userData:{}})
+        setTimeout(()=>setUser({...user,loading: false, errMsg: null, userData:{}}),2000)
       }
     })
     .catch(err => console.log('err ',err))
