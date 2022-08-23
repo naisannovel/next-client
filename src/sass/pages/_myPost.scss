@@ -1,13 +1,21 @@
-.my__post__container{
-    padding: 3.5rem;
-    margin: 2.5rem 0;
-    & .my__post__card__content__container{
-        & p{
-            font-size: 1.5rem;
+.my__post__main_container{
+
+    min-height: calc(100vh - 70px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & .my__post__container{
+        padding: 3.5rem;
+        margin: 2.5rem 0;
+        & .my__post__card__content__container{
+            & p{
+                font-size: 1.5rem;
+            }
         }
-    }
-    & .my__post__button__container{
-        @include center-flex;
-        justify-content: space-evenly;
+        & .my__post__button__container{
+            @include center-flex;
+            justify-content: space-evenly;
+        }
     }
 }

@@ -1,4 +1,10 @@
 .hero__container {
+    display: grid;
+    place-items: center;
+    justify-content: center;
+    background-color: #E2E8F0;
+    min-height: calc(80vh - 70px);
+
     & .hero__row__container {
         margin-top: 7rem;
 
@@ -14,10 +20,15 @@
 
             @include respond(tablet) {
                 align-items: center;
+                margin-bottom: 60px;
             }
 
             & h1 {
                 font-size: 5rem;
+
+                @include respond(tablet) {
+                   text-align: center;
+                }
             }
 
             & p {
@@ -27,6 +38,7 @@
 
                 @include respond(tablet) {
                     width: 100%;
+                    text-align: center;
                 }
             }
         }
